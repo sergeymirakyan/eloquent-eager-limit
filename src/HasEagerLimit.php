@@ -44,9 +44,9 @@ trait HasEagerLimit
 
         $grammar = match ($driver) {
             'mysql', 'mariadb' => new MySqlGrammar($connection),
-            'pgsql' => new PostgresGrammar(),
-            'sqlite' => new SQLiteGrammar(),
-            'sqlsrv' => new SqlServerGrammar(),
+            'pgsql' => new PostgresGrammar($connection),
+            'sqlite' => new SQLiteGrammar($connection),
+            'sqlsrv' => new SqlServerGrammar($connection),
             default => throw new RuntimeException('This database is not supported.'), // @codeCoverageIgnore
         };
 
