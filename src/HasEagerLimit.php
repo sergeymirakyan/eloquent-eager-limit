@@ -23,7 +23,7 @@ trait HasEagerLimit
     {
         $connection = $this->getConnection();
 
-        $grammar = $connection->withTablePrefix($this->getQueryGrammar($connection));
+        $grammar = $this->getQueryGrammar($connection);
 
         return new \Staudenmeir\EloquentEagerLimit\Builder(
             $connection,
@@ -43,7 +43,7 @@ trait HasEagerLimit
         $driver = $connection->getDriverName();
 
         $grammar = match ($driver) {
-            'mysql', 'mariadb' => new MySqlGrammar(),
+            'mysql', 'mariadb' => new MySqlGrammar($connection),
             'pgsql' => new PostgresGrammar(),
             'sqlite' => new SQLiteGrammar(),
             'sqlsrv' => new SqlServerGrammar(),
